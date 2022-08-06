@@ -5,8 +5,8 @@ const landingsApiRouter = express.Router();
 
 // landings API
 
-landingsApiRouter.get('/astronomy/landings', landingsApiController.getProduct)
-landingsApiRouter.post('/astronomy/landings', landingsApiController.createProduct)
-landingsApiRouter.delete('/astronomy/landings', landingsApiController.deleteProduct)
+landingsApiRouter.get('/astronomy/landings', landingsApiController.getLanding)
+// landingsApiRouter.post('/astronomy/landings', landingsApiController.createProduct)
+// landingsApiRouter.delete('/astronomy/landings', landingsApiController.deleteProduct)
 
 module.exports = landingsApiRouter;
