@@ -26,8 +26,8 @@ const getLanding = async (req, res) => {
 }
 
 
-const landingCont = {
+const landingControllers = {
     getLanding
 }
 
-module.exports = landingCont;
+module.exports = landingControllers;
