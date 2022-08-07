@@ -4,7 +4,7 @@ const owl = require('cowsay2/cows/owl');
 require('./utils/dbMongo.js');
 
 //Routes
-// const landingsApiRouter = require('./routes/landingsApiRoutes')
+const landingsApiRouter = require('./routes/landingsApiRoutes')
 // const neasApiRouter = require('./routes/neasApiRoutes')
 
 //Middleware 404
@@ -17,7 +17,7 @@ const port = 3000
 app.use(express.json())
 
 //API
-// app.use('/api', landingsApiRouter, neasApiRouter)
+app.use('/api', landingsApiRouter)
 
 //If routes fail, show error 404
 app.use(manage404);
