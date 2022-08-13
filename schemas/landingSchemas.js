@@ -1,7 +1,6 @@
 
 const mongoose = require('mongoose');
-
-const landingSchema = new mongoose.Schema({
+const landingSchema = new mongoose.Schema ({
     name: {
         type: String,
     },
@@ -39,9 +38,10 @@ const landingSchema = new mongoose.Schema({
             type: Number,
         }
     }
-});
+    
+})
 
-const landingModel = mongoose.model("Landing", landingSchema);
+const Landings = mongoose.model('landings',landingSchema);
 
-module.exports = landingModel;
+module.exports = Landings;
 
