@@ -22,9 +22,29 @@ const getLandingsMinMass = async (minMassNumber)=> {
     console.error(err);
 }}
 
+const getLandingFrom = async (from) => {
+    try {
+    const landingFromTo = await Landing.find({year:{$gt:from}})
+    return landingFromTo
+    }
+    catch(err){
+        console.error(err); 
+    }
+}
+
+const getLandingTo = async (to) => {
+    try {
+    const landingFromTo = await Landing.find({year:{$lt:to}})
+    return landingFromTo
+    }
+    catch(err){
+        console.error(err); 
+    }
+}
+
 const getLandingFromTo = async (from, to) => {
     try {
-    const landingFromTo = await Landing.find({from:{$gt:from}})
+    const landingFromTo = await Landing.find({year:{$gt:from, $lt:to}})
     return landingFromTo
     }
     catch(err){
@@ -36,5 +56,7 @@ const getLandingFromTo = async (from, to) => {
 module.exports = {
     getAllLandings,
     getLandingsMinMass,
+    getLandingFrom,
+    getLandingTo, 
     getLandingFromTo
 }
