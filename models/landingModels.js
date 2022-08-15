@@ -32,6 +32,17 @@ const getLandingMass = async (mass) => {
     console.error(err);
 }}
 
+const getLandingClass = async (clase) => {
+    try {
+  
+        const getLandingsByClass = await Landing.find({recclass: clase}, "name recclass -_id")
+        return getLandingsByClass
+    }
+    catch(err){
+    console.error(err);
+}}
+
+
 const getLandingFrom = async (from) => {
     try {
     const landingFromTo = await Landing.find({year:{$gt:from}})
@@ -69,5 +80,6 @@ module.exports = {
     getLandingFrom,
     getLandingTo, 
     getLandingFromTo,
-    getLandingMass
+    getLandingMass,
+    getLandingClass
 }

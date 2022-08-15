@@ -60,8 +60,14 @@ const getLanding = async (req, res) => {
 }
 
 const getLandingByMass = async(req, res) => {
-    console.log(req.params.mass);
+
     let landingMass =  await Landing.getLandingMass(req.params.mass);
+    res.status(200).json(landingMass)
+}
+
+const getLandingByClass = async(req, res) => {
+
+    let landingMass =  await Landing.getLandingClass(req.params.class);
     res.status(200).json(landingMass)
 }
 
@@ -71,7 +77,8 @@ const getLandingByMass = async(req, res) => {
 
 const landingControllers = {
     getLanding,
-    getLandingByMass
+    getLandingByMass,
+    getLandingByClass
 }
 
 module.exports = landingControllers;
