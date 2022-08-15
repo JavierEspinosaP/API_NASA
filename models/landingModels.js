@@ -22,6 +22,16 @@ const getLandingsMinMass = async (minMassNumber)=> {
     console.error(err);
 }}
 
+const getLandingMass = async (mass) => {
+    try {
+  
+        const getLandingsByMass = await Landing.find({mass: mass}, "name mass -_id")
+        return getLandingsByMass
+    }
+    catch(err){
+    console.error(err);
+}}
+
 const getLandingFrom = async (from) => {
     try {
     const landingFromTo = await Landing.find({year:{$gt:from}})
@@ -58,5 +68,6 @@ module.exports = {
     getLandingsMinMass,
     getLandingFrom,
     getLandingTo, 
-    getLandingFromTo
+    getLandingFromTo,
+    getLandingMass
 }

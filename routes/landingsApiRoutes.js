@@ -6,6 +6,7 @@ const landingsApiRouter = express.Router();
 // landings API
 
 landingsApiRouter.get('/astronomy/landings', landingsApiControllers.getLanding)
+landingsApiRouter.get('/astronomy/landings/mass/:mass', landingsApiControllers.getLandingByMass)
 // landingsApiRouter.post('/astronomy/landings', landingsApiController.createProduct)
 // landingsApiRouter.delete('/astronomy/landings', landingsApiController.deleteProduct)
 

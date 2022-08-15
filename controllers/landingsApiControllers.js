@@ -52,10 +52,17 @@ const getLanding = async (req, res) => {
             res.status(404).json({ "message": "landing not found" });
         }
 
-    } else {
+    }
+    else {
         const landings = await Landing.getAllLandings();
         res.status(200).json(landings);
     }
+}
+
+const getLandingByMass = async(req, res) => {
+    console.log(req.params.mass);
+    let landingMass =  await Landing.getLandingMass(req.params.mass);
+    res.status(200).json(landingMass)
 }
 
 
@@ -63,7 +70,8 @@ const getLanding = async (req, res) => {
 
 
 const landingControllers = {
-    getLanding
+    getLanding,
+    getLandingByMass
 }
 
 module.exports = landingControllers;
