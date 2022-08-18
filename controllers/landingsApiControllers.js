@@ -60,25 +60,61 @@ const getLanding = async (req, res) => {
 }
 
 const getLandingByMass = async(req, res) => {
-
-    let landingMass =  await Landing.getLandingMass(req.params.mass);
-    res.status(200).json(landingMass)
+    try{
+     let landingMass =  await Landing.getLandingMass(req.params.mass);
+    res.status(200).json(landingMass)   
+    }
+    catch {
+    console.log(`ERROR: ${error.stack}`)
+    res.status(404).json({ "message": "landing not found" });  
+    }
 }
 
 const getLandingByClass = async(req, res) => {
-
-    let landingMass =  await Landing.getLandingClass(req.params.class);
-    res.status(200).json(landingMass)
+    try{
+     let landingMass =  await Landing.getLandingClass(req.params.class);
+    res.status(200).json(landingMass)   
+    }
+    catch(error){
+    console.log(`ERROR: ${error.stack}`)
+    res.status(404).json({ "message": "landing not found" });
+    }
 }
 
 
-//esto va mal hababy
+const createLanding = async (req, res) => {
+    try{
+     let newLanding = await Landing.createLandings(req.body);
+    res.status(200).json(newLanding)   
+    console.log("Landing saved successfully: ", req.body);
+    }
+    catch(error){
+    console.log(`ERROR: ${error.stack}`)
+    res.status(404).json({ "message": "landing not created" });
+    }
+    
+}
+
+const updateLanding = async (req,res)=>{
+    try {
+  
+    await Landing.updateLandings(req.body);
+        console.log("esto es req.body", req.body);
+        res.send("Landing updated");
+    } 
+    catch(error){
+        console.log(`ERROR: ${error.stack}`)
+        res.status(404).json({ "message": "landing not updated" });
+        }
+}
 
 
 const landingControllers = {
     getLanding,
     getLandingByMass,
-    getLandingByClass
+    getLandingByClass,
+    createLanding, 
+    updateLanding
 }
 
 module.exports = landingControllers;
