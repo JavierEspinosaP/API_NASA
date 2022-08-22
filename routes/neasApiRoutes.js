@@ -5,8 +5,8 @@ const neasApiRouter = express.Router();
 
 // neas API
 
-neasApiRouter.get('/astronomy/neas', neasApiController.getProduct)
-neasApiRouter.post('/astronomy/neas', neasApiController.createProduct)
-neasApiRouter.delete('/astronomy/neas', neasApiController.deleteProduct)
+neasApiRouter.get('/astronomy/neas', neasApiController.getNeas);
+// neasApiRouter.post('/astronomy/neas', neasApiController.createProduct)
+// neasApiRouter.delete('/astronomy/neas', neasApiController.deleteProduct)
 
 module.exports = neasApiRouter;

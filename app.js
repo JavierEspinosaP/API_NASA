@@ -8,6 +8,7 @@ const owl = require('cowsay2/cows/owl');
 //Routes
 const landingsApiRouter = require('./routes/landingsApiRoutes')
 const usersApiRouter = require('./routes/usersApiRoutes')
+const neasApiRouter = require('./routes/neasApiRoutes')
 
 //Middleware 404
 const manage404 = require('./middlewares/error404')
@@ -27,6 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //API
 app.use('/api', landingsApiRouter)
+app.use('/api', neasApiRouter)
 app.use('/api', usersApiRouter)
 
 

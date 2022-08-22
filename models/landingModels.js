@@ -1,5 +1,4 @@
 
-const { ObjectId } = require("mongodb");
 const Landing = require('../schemas/landingSchemas')
 
 const getAllLandings = async () => {
@@ -79,6 +78,8 @@ const createLandings = async (landing) => {
 try{let newLanding = new Landing(landing) //Crear el objeto landing
     let answer = await newLanding.save() //Guardar objeto en Mondodb
     console.log("Este es el console.log de lo que devuelve la api",answer);
+    return {Answer:"Landing created",
+    Landing: answer}
 }
 catch(error){
     console.log(`ERROR:${error}`)
@@ -103,6 +104,8 @@ const updateLandings = async (landing) => {
         oldLanding.overwrite(newLanding);//Edicion del landing
         console.log("esto es oldLanding despues de overwrite", oldLanding);
         await oldLanding.save();//Guardar nuevo landing
+        return {Answer: "Landing Updated",
+                Landing: oldLanding}
     } catch (error) {
         console.log(error);
     }
@@ -112,6 +115,7 @@ const deleteLandings = async (landing) => {
     try {
         let answer = await Landing.deleteOne({id: landing.id})
         console.log("Este es el console.log de lo que devuelve la api",answer);
+        return `Landing with id ${landing.id} deleted`
     }
   catch(error){
     console.log(`ERROR:${error}`)
