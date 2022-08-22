@@ -35,7 +35,7 @@ const getNeas = async (req, res) => {
     } else if (from) { //FIND BY DATES
 
         try {
-            let neaFromTo = await Nea.getNeaFrom(from)
+            let neaFromTo = await Nea.getNeasFrom(from)
             res.status(200).json(neaFromTo);
         }
         catch (error) {
@@ -45,7 +45,7 @@ const getNeas = async (req, res) => {
     } else if (to) { //FIND BY DATES
 
         try {
-            let neaFromTo = await Nea.getNeaTo(to)
+            let neaFromTo = await Nea.getNeasTo(to)
             res.status(200).json(neaFromTo);
         }
         catch (error) {
@@ -96,7 +96,7 @@ const getNeaByClass = async (req, res) => {
 
 const createNeas = async (req, res) => {
     try {
-        let newNea = await Nea.createNeas(req.body);
+        let newNea = await Nea.createNea(req.body);
         res.status(200).json(newNea)
         console.log("Nea saved successfully: ", req.body);
     }
@@ -110,7 +110,7 @@ const createNeas = async (req, res) => {
 const updateNeas = async (req, res) => {
     try {
 
-        await Nea.updateNeas(req.body);
+        await Nea.updateNea(req.body);
         console.log("esto es req.body", req.body);
         res.send("Nea updated");
     }
@@ -122,8 +122,7 @@ const updateNeas = async (req, res) => {
 
 const deleteNeas = async (req, res) => {
     try {
-        let deleteNea = req.params.id;
-        await Nea.deleteNeas(deleteNea);
+        await Nea.deleteNea(req.body);
         res.send("Nea deleted");
     }
     catch (error) {

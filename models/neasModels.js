@@ -83,9 +83,9 @@ const getNeasByDate = async (date) => {
     }
 }
 
-const createNea = async (Nea) => {
+const createNea = async (nea) => {
 
-try{let newNea = new Nea(Nea) //Crear el objeto Neas
+try{let newNea = new Nea(nea) //Crear el objeto Neas
     let answer = await newNea.save() //Guardar objeto en Mondodb
     console.log("Este es el console.log de lo que devuelve la api",answer);
     return {Answer:"Nea created",
@@ -98,20 +98,20 @@ catch(error){
 const updateNea = async (nea) => {
     try {
         const newNea = {
-            "id": nea.id,
-            "name": nea.name,
-            "nametype": nea.nametype,
-            "recclass": nea.recclass,
-            "mass": nea.mass,
-            "fall": nea.fall,
-            "year": nea.year,
-            "reclat": nea.reclat,
-            "reclong": nea.reclong,
-            "geolocation": nea.geolocation
+            "designation": nea.designation,
+            "discovery_date": nea.discovery_date,
+            "h_mag": nea.h_mag,
+            "moid_au": nea.moid_au,
+            "q_au_1": nea.q_au_1,
+            "q_au_2": nea.q_au_2,
+            "period_yr": nea.reclat,
+            "i_deg": nea.i_deg,
+            "pha": nea.pha,
+            "orbit_class": nea.orbit_class
         } //Neas del body
-        console.log("esto es newNeas: ", newNeas);
-        const oldNea = await Nea.findOneAndUpdate({id: nea.id}, newNea); //Busqueda del Neas por id
-        oldNea.overwrite(newNeas);//Edicion del Neas
+        console.log("esto es newNeas: ", newNea);
+        const oldNea = await Nea.findOneAndUpdate({designation: nea.designation}, newNea); //Busqueda del Neas por designation
+        oldNea.overwrite(newNea);//Edicion del Neas
         console.log("esto es oldNeas despues de overwrite", oldNea);
         await oldNea.save();//Guardar nuevo Neas
         return {Answer: "Neas Updated",
@@ -123,9 +123,9 @@ const updateNea = async (nea) => {
 
 const deleteNea = async (nea) => {
     try {
-        let answer = await nea.deleteOne({id: nea.id})
+        let answer = await Nea.deleteOne({designation: nea.designation})
         console.log("Este es el console.log de lo que devuelve la api",answer);
-        return `Neas with id ${nea.id} deleted`
+        return `Nea with designation ${nea.designation} deleted`
     }
   catch(error){
     console.log(`ERROR:${error}`)
