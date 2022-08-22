@@ -11,11 +11,10 @@ const getAllNeas = async () => {
 }
 
 
-const getNeaMinMass = async (minMassNumber)=> {
+const getNeasByOrbitClass = async (orbitClass)=> {
     try{
-        const getNeasMinMass = await Nea.find({mass: {$gt:minMassNumber}}, "id mass -_id")
-        console.log(typeof minMassNumber);
-        return getNeasMinMass  
+        const getNeasByOClass = await Nea.find({orbit_class: orbitClass}, "designation period_yr -_id")
+        return getNeasByOClass
     }
  catch(err){
     console.error(err);
@@ -63,9 +62,21 @@ const getNeasTo = async (to) => {
 }
 
 const getNeasFromTo = async (from, to) => {
+
     try {
     const NeasFromTo = await Nea.find({year:{$gt:from, $lt:to}})//Buscar entre un año y otro
     return NeasFromTo
+    }
+    catch(err){
+        console.error(err); 
+    }
+}
+
+const getNeasByDate = async (date) => {
+    
+    try {
+    const NeasByDate = await Nea.find({discovery_date:{$regex: date, $options: 'i'}})//Buscar por fecha especifica
+    return NeasByDate
     }
     catch(err){
         console.error(err); 
@@ -123,10 +134,11 @@ const deleteNea = async (nea) => {
 
 module.exports = {
     getAllNeas,
-    getNeaMinMass,
+    getNeasByOrbitClass,
     getNeasFrom,
     getNeasTo, 
     getNeasFromTo,
+    getNeasByDate,
     getNeaMass,
     getNeaClass,
     createNea,

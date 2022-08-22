@@ -2,17 +2,19 @@ const Nea = require('../models/neasModels')
 
 const getNeas = async (req, res) => {
 
-    let minimum_mass = req.query.minimum_mass
+
+    let orbitClass = req.query.class
+    let date = req.query.date
 
     let from = req.query.from
     let to = req.query.to
 
-    const minMassNumber = parseInt(minimum_mass)
+    // const minMassNumber = parseInt(minimum_mass)
 
-    if (minMassNumber) { //FIND BY MIN MASS
+    if (orbitClass) { //FIND BY ORBIT CLASS
         try {
-            let NeaMinMass = await Nea.getNeasMinMass(minMassNumber)
-            res.status(200).json(NeaMinMass);
+            let NeaByClass = await Nea.getNeasByOrbitClass(orbitClass)
+            res.status(200).json(NeaByClass);
         }
         catch (error) {
             console.log(`ERROR: ${error.stack}`)
@@ -22,9 +24,8 @@ const getNeas = async (req, res) => {
 
     else if (from && to) { //FIND BY DATES
 
-
         try {
-            let NeaFromTo = await Nea.getNeaFromTo(from, to)
+            let NeaFromTo = await Nea.getNeasFromTo(from, to)
             res.status(200).json(NeaFromTo);
         }
         catch (error) {
@@ -51,6 +52,17 @@ const getNeas = async (req, res) => {
             console.log(`ERROR: ${error.stack}`)
             res.status(404).json({ "message": "Nea not found" });
         }
+    }
+    else if (date) { //FIND BY ESPECIFIC DATE
+
+        try {
+            let neaDate = await Nea.getNeasByDate(date)
+            res.status(200).json(neaDate);
+        }
+        catch (error) {
+            console.log(`ERROR: ${error.stack}`)
+            res.status(404).json({ "message": "Nea not found" });
+        }
 
     }
     else {
@@ -59,65 +71,65 @@ const getNeas = async (req, res) => {
     }
 }
 
-const getNeaByMass = async(req, res) => {
-    try{
-     let NeaMass =  await Nea.getNeaMass(req.params.mass);
-    res.status(200).json(NeaMass)   
+const getNeaByMass = async (req, res) => {
+    try {
+        let NeaMass = await Nea.getNeaMass(req.params.mass);
+        res.status(200).json(NeaMass)
     }
     catch {
-    console.log(`ERROR: ${error.stack}`)
-    res.status(404).json({ "message": "Nea not found" });  
+        console.log(`ERROR: ${error.stack}`)
+        res.status(404).json({ "message": "Nea not found" });
     }
 }
 
-const getNeaByClass = async(req, res) => {
-    try{
-     let NeaMass =  await Nea.getNeaClass(req.params.class);
-    res.status(200).json(NeaMass)   
-    }
-    catch(error){
-    console.log(`ERROR: ${error.stack}`)
-    res.status(404).json({ "message": "Nea not found" });
-    }
-}
-
-
-const createNea = async (req, res) => {
-    try{
-     let newNea = await Nea.createNeas(req.body);
-    res.status(200).json(newNea)   
-    console.log("Nea saved successfully: ", req.body);
-    }
-    catch(error){
-    console.log(`ERROR: ${error.stack}`)
-    res.status(404).json({ "message": "Nea not created" });
-    }
-    
-}
-
-const updateNea = async (req,res)=>{
+const getNeaByClass = async (req, res) => {
     try {
-  
-    await Nea.updateNeas(req.body);
+        let NeaMass = await Nea.getNeaClass(req.params.class);
+        res.status(200).json(NeaMass)
+    }
+    catch (error) {
+        console.log(`ERROR: ${error.stack}`)
+        res.status(404).json({ "message": "Nea not found" });
+    }
+}
+
+
+const createNeas = async (req, res) => {
+    try {
+        let newNea = await Nea.createNeas(req.body);
+        res.status(200).json(newNea)
+        console.log("Nea saved successfully: ", req.body);
+    }
+    catch (error) {
+        console.log(`ERROR: ${error.stack}`)
+        res.status(404).json({ "message": "Nea not created" });
+    }
+
+}
+
+const updateNeas = async (req, res) => {
+    try {
+
+        await Nea.updateNeas(req.body);
         console.log("esto es req.body", req.body);
         res.send("Nea updated");
-    } 
-    catch(error){
+    }
+    catch (error) {
         console.log(`ERROR: ${error.stack}`)
         res.status(404).json({ "message": "Nea not updated" });
-        }
+    }
 }
 
-const deleteNea = async (req,res)=>{
+const deleteNeas = async (req, res) => {
     try {
         let deleteNea = req.params.id;
         await Nea.deleteNeas(deleteNea);
         res.send("Nea deleted");
-    }     
-    catch(error){
+    }
+    catch (error) {
         console.log(`ERROR: ${error.stack}`)
         res.status(404).json({ "message": "Nea not deleted" });
-        }
+    }
 }
 
 
@@ -125,9 +137,9 @@ const NeaControllers = {
     getNeas,
     getNeaByMass,
     getNeaByClass,
-    createNea, 
-    updateNea,
-    deleteNea
+    createNeas,
+    updateNeas,
+    deleteNeas
 }
 
 module.exports = NeaControllers;
