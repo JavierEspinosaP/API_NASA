@@ -1,25 +1,35 @@
+
 const express = require('express')
+
+require('./utils/dbMongo.js');
 const cowsay = require('cowsay2');
 const owl = require('cowsay2/cows/owl');
-require('./utils/dbMongo.js');
-const path = require("path")
 
 //Routes
 const landingsApiRouter = require('./routes/landingsApiRoutes')
-// const neasApiRouter = require('./routes/neasApiRoutes')
+const usersApiRouter = require('./routes/usersApiRoutes')
+const neasApiRouter = require('./routes/neasApiRoutes')
 
 //Middleware 404
 const manage404 = require('./middlewares/error404')
 
 const app = express()
+
 const cors = require("cors");
 const port = 3000
 
+
 //Read body from request
-app.use(express.json())
+
 app.use(cors());
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+
+
 //API
 app.use('/api', landingsApiRouter)
+app.use('/api', neasApiRouter)
+app.use('/api', usersApiRouter)
 
 
 //If routes fail, show error 404

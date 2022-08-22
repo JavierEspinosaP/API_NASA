@@ -13,7 +13,6 @@ const landingSchema = new mongoose.Schema ({
     },
     recclass: {
         type: String,
-
     },
     mass: {
         type: Number,
@@ -32,10 +31,10 @@ const landingSchema = new mongoose.Schema ({
     },
     geolocation: {
         latitude: {
-            type: Number,
+            type: String,
         },
         longitude:{
-            type: Number,
+            type: String,
         }
     }
     
