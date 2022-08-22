@@ -108,13 +108,26 @@ const updateLanding = async (req,res)=>{
         }
 }
 
+const deleteLanding = async (req,res)=>{
+    try {
+        let deleteLanding = req.params.id;
+        await Landing.deleteLandings(deleteLanding);
+        res.send("Landing deleted");
+    }     
+    catch(error){
+        console.log(`ERROR: ${error.stack}`)
+        res.status(404).json({ "message": "landing not deleted" });
+        }
+}
+
 
 const landingControllers = {
     getLanding,
     getLandingByMass,
     getLandingByClass,
     createLanding, 
-    updateLanding
+    updateLanding,
+    deleteLanding
 }
 
 module.exports = landingControllers;

@@ -96,10 +96,7 @@ const updateLandings = async (landing) => {
             "year": landing.year,
             "reclat": landing.reclat,
             "reclong": landing.reclong,
-            "geolocation": {
-              "latitude": "16.88333",
-              "longitude": "-99.9"
-            }
+            "geolocation": landing.geolocation
         } //Landing del body
         console.log("esto es newLanding: ", newLanding);
         const oldLanding = await Landing.findOneAndUpdate({id: landing.id}, newLanding); //Busqueda del landing por id
@@ -109,7 +106,16 @@ const updateLandings = async (landing) => {
     } catch (error) {
         console.log(error);
     }
-}
+};
+
+const deleteLandings = async (landing) => {
+    try {
+        let answer = await Landing.deleteOne({id: landing.id})
+        console.log("Este es el console.log de lo que devuelve la api",answer);
+    }
+  catch(error){
+    console.log(`ERROR:${error}`)
+}}
 
 
 module.exports = {
@@ -122,4 +128,5 @@ module.exports = {
     getLandingClass,
     createLandings,
     updateLandings,
+    deleteLandings
 }
